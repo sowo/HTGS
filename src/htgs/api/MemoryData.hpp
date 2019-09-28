@@ -119,7 +119,8 @@ class MemoryData : public IData, public std::enable_shared_from_this<MemoryData<
   void releaseMemory() {
     std::shared_ptr<MemoryData<T>> mPtr = std::enable_shared_from_this<MemoryData<T>>::shared_from_this();
     std::shared_ptr<Connector<MemoryData<T>>> mConn = memoryManagerConnector.lock();
-    mConn->produceData(mPtr);
+    if (mConn != nullptr)
+    	mConn->produceData(mPtr);
   }
 
   /**
